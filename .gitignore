@@ -1,0 +1,13 @@
+.DS_Store
+.dotest
+.svn
+.svn/**/*
+log/*.log
+tmp
+tmp/**/*
+db/*.sqlite3
+db/*.sqlite3.*
+db/schema.rb
+config/database.yml
+coverage/*.*
+coverage.*
