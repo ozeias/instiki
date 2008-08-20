@@ -4,27 +4,32 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <title>
-    <% if @page and (@page.name == 'HomePage') and (%w( show published print ).include?(@action_name)) %>
-      <%= h @web.name %>
-    <% elsif @web %>
-      <%= @title %> in <%= h @web.name %>
-    <% else %>
-      <%= @title %>
-    <% end %>
-    <%= @show_diff ? ' (changes)' : '' %>
-  </title>
+		<% if @page and (@page.name == 'Ruby on Rails') and (%w( show published print ).include?(@action_name)) -%>
+		  <%= h @web.name %>
+		<% elsif @web and (@title == 'Home Page') -%>
+			<%= @web.name -%>
+		<% elsif @web -%>
+		  <%= @title %> em <%= h @web.name %>
+		<% else -%>
+		  <%= @title %>
+		<% end -%>
+		<%= @show_diff ? ' (changes)' : '' %>
+	</title>
 
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="robots" content="<%= @robots_metatag_value %>" />
   
   <style type="text/css">
-    h1#pageName, .newWikiWord a, a.existingWikiWord, .newWikiWord a:hover, #TextileHelp h3 { 
-      color: #<%= @web ? @web.color : "393" %>; 
-    }
-    <%= File.read(RAILS_ROOT + '/public/stylesheets/instiki.css') if @inline_style %>
-  </style>
+	  h1#pageName, .newWikiWord a, a.existingWikiWord, .newWikiWord a:hover, #TextileHelp h3 { 
+	    color: #393; 
+	  }
 
-  <%= stylesheet_link_tag 'instiki' unless @inline_style %>
+	  #Container, #Content {
+	    width: 726px;
+	  }
+  </style>
+  <%= stylesheet_link_tag 'instiki' -%>
+	<%= stylesheet_link_tag 'captcha' -%>
 
   <style type="text/css">
     <%= @style_additions %>
@@ -38,42 +43,54 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 </head>
 
 <body>
-
-<div id="Container">
-<div id="Content">
-  <h1 id="pageName">
-    <% if @page and (@page.name == 'HomePage') and %w( show published print ).include?(@action_name) %>
-      <%= h(@web.name) + (@show_diff ? ' (changes)' : '') %>
-    <% elsif @web %>
-      <small><%= @web.name %></small><br />
-      <%= @title %>
-    <% else %>
-      <%= @title %>
-    <% end %>
-  </h1>
-
-<%= render 'navigation' unless @web.nil? || @hide_navigation %>
-
-<% if flash[:info] %>
-  <div class="info"><%= escape_preserving_linefeeds flash[:info] %></div>
-<% end %>
-
-<% if @error or flash[:error] %> 
-    <div class="errorExplanation"><%= escape_preserving_linefeeds(@error || flash[:error]) %></div>
-<% end %>
-
-<%= @content_for_layout %>
-
-<% if @show_footer %>
-    <div id="footer">
-    <div>This site is running on <a href="http://instiki.org/">Instiki</a></div>
-    <div>Powered by <a href="http://rubyonrails.com/">Ruby on Rails</a></div>
+	<div id="Container">
+		<div id="Header">
+			<div id="Nav">
+		    <a href="/" title="Capa" class="current">Capa</a> | 
+		    <a href="//www.rubyonrails.pro.br/apresentacoes" title="Apresenta&ccedil;&otilde;es">Apresenta&ccedil;&otilde;es</a> | 
+				<a href="//www.rubyonrails.pro.br/down" title="Download">Download</a> | 
+				<a href="//www.rubyonrails.pro.br/documentacao" title="Documenta&ccedil;&atilde;o">Documenta&ccedil;&atilde;o</a> | 
+				<a href="//podcast.rubyonrails.pro.br/" title="Podcasts">Podcasts</a> | 
+				<a href="//www.rubyonrails.pro.br/planeta/" title="Planeta">Planeta</a> | 
+				<a href="//www.rubyonrails.pro.br/comunidade" title="Comunidade">Comunidade</a> | 
+				<a href="//rails.lighthouseapp.com/" title="Bugs/patches">Bugs/patches</a> | 
+				<a href="//github.com/rails/rails" title="Fonte">Fonte</a>
+		  </div>
     </div>
-<% end %>
+		<div id="Content">
+	  	<div id="i2Nav">
+		  	<h1 id="pageName">
+			    <% if @page and (@page.name == 'HomePage') and %w( show published print ).include?(@action_name) -%>
+			      <%= h(@web.name) + (@show_diff ? ' (changes)' : '') -%>
+			    <% elsif @web and (@title == 'Home Page') -%>
+						<%= @web.name %>
+					<% elsif @web -%>
+			      <small><%= @web.name -%></small><br />
+			      <%= @title -%>
+			    <% else -%>
+			      <%= @title -%>
+			    <% end -%>
+			  </h1>
+			</div>
+		<%= render 'navigation' unless @web.nil? || @hide_navigation -%>
 
-</div> <!-- Content -->
+		<% if flash[:info] -%>
+		  <div class="info"><%= escape_preserving_linefeeds flash[:info] -%></div>
+		<% end -%>
 
-</div> <!-- Container -->
+		<% if @error or flash[:error] -%> 
+		    <div class="errorExplanation"><%= escape_preserving_linefeeds(@error || flash[:error]) -%></div>
+		<% end -%>
 
+		<%= @content_for_layout -%>
+
+		<% if @show_footer -%>
+		    <div id="footer">
+		    <div>This site is running on <a href="http://instiki.org/">Instiki</a></div>
+		    <div>Powered by <a href="http://rubyonrails.com/">Ruby on Rails</a></div>
+		    </div>
+		<% end %>
+		</div> <!-- Content -->
+	</div> <!-- Container -->
 </body>
 </html>

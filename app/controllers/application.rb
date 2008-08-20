@@ -145,9 +145,9 @@ class ApplicationController < ActionController::Base
 
   def set_content_type_header
     if %w(rss_with_content rss_with_headlines).include?(action_name)
-      response.headers['Content-Type'] = 'text/xml; charset=UTF-8'
+      response.headers['type'] = 'text/xml; charset=UTF-8'
     else
-      response.headers['Content-Type'] = 'text/html; charset=UTF-8'
+      response.headers['type'] = 'text/html; charset=UTF-8'
     end
   end
 

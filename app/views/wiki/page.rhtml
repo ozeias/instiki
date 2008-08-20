@@ -4,7 +4,7 @@
   @show_footer = true
 %>
 
-<div id="revision">
+<!--<div id="revision">-->
   <% if @show_diff %>
     <p style="background: #eee; padding: 3px; border: 1px solid silver">  
       <small>  
@@ -16,7 +16,7 @@
   <% else %>
     <%= @renderer.display_content %>
   <% end %>
-</div>
+<!--</div>-->
 
 <div class="byline">
   <%= @page.revisions? ? "Revised" : "Created" %> on <%= format_date(@page.revised_at) %> 
